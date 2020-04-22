@@ -5,15 +5,15 @@ function New-TenableScan {
     $ManagedCredsUUID = "<Managed Credentials UUID>"
     $FolderID = "<Folder ID>"
     $Scanner = "<Scanner ID>"
-    $URI = "https://cloud.tenable.com/scans"
+    $ScanURI = "https://cloud.tenable.com/scans"
     $AccessKey = "<accesskey>"
     $SecretKey = "<secretkey>"
     $Headers = @{ }
     $Headers.Add("accept", "application/json")
     $Headers.Add("X-ApiKeys", "accessKey=$AccessKey;secretKey=$Secretkey")
-    $UUID = "<uuid>"
+    $TemplateUUID = "<uuid>"
     $ScanSettings = [ordered]@{
-        uuid        = $UUID
+        uuid        = $TemplateUUID
         settings    = @{
             name         = $ReportName
             folder_id    = $FolderID
@@ -32,8 +32,8 @@ function New-TenableScan {
             }
         }
     }
-    $JSON = $ScanSettings | ConvertTo-Json -Depth 10
-    $Response = Invoke-RestMethod -Uri $URI -Method Post -Headers $Headers -ContentType 'application/json' -Body $JSON
+    $JSON = $ScanSettings | ConvertTo-Json -Depth 5
+    $Response = Invoke-RestMethod -Uri $ScanURI -Method Post -Headers $Headers -ContentType 'application/json' -Body $JSON
 
     return $Response
 }
@@ -44,4 +44,5 @@ function Start-TenableScan {
     $ScanUUID = "https://cloud.tenable.com/scans/$($CreationResponse.scan.uuid)/launch"
 
     $StartScanResponse = Invoke-RestMethod -Uri $ScanUUID -Method POST -Headers $headers
-    { }
+
+}
