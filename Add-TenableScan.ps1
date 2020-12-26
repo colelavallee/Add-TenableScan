@@ -3,15 +3,15 @@ function New-TenableScan {
     $Name = ([System.Net.Dns]::GetHostByName(($env:computerName))).Hostname
     $ReportName = "$($Name) - $($Date)"
     $ManagedCredsUUID = "<Managed Credentials UUID>"
-    $FolderID = "<Folder ID>"
-    $Scanner = "<Scanner ID>"
+    $FolderID = $FolderID
+    $Scanner = $ScannerID
     $ScanURI = "https://cloud.tenable.com/scans"
-    $AccessKey = "<accesskey>"
-    $SecretKey = "<secretkey>"
+    $AccessKey = $AccessKey
+    $SecretKey = $SecretKey
     $Headers = @{ }
     $Headers.Add("accept", "application/json")
     $Headers.Add("X-ApiKeys", "accessKey=$AccessKey;secretKey=$Secretkey")
-    $TemplateUUID = "<uuid>"
+    $TemplateUUID = $TemplateUUID
     $ScanSettings = [ordered]@{
         uuid        = $TemplateUUID
         settings    = @{
